@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL문법에 대한 파일(mapper) / namespace: 그룹명 -->
+<mapper namespace="spring_learning.macbook_mapper">
+<!-- DML만 사용가능 / DDL 사용 x
+<select></select>
+<insert></insert>
+<update></update>
+<delete></delete>
+
+${}: 필드명, 테이블명, 파라미터 / ''가 알아서 붙지 않기 때문에 사용하려면 '' 직접 붙여야 함
+#{}: 값을 적용시킬때 사용하는 파라미터 값 / ''가 알아서 붙음
+
+ -->
+<insert id="macbook_insert">
+insert into macbook_class (midx, class_part, class_cate, class_name, class_day, class_price, class_sales, class_info, class_teacher, class_object, class_use, today)
+values ('0', #{class_part}, #{class_cate}, #{class_name}, #{class_day}, #{class_price}, #{class_sales}, #{class_info}, #{class_teacher}, #{class_object}, #{class_use}, now())
+</insert>
+
+<select id="macbook_select">
+select * from macbook_class
+</select>
+
+<delete id="macbook_delete">
+delete from macbook_class
+</delete>
+
+
+
+
+</mapper>

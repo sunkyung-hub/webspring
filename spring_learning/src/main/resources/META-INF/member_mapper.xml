@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member_mapper.xml -->
+<mapper namespace="macbook_user">
+
+<select id="user_all" resultType="memberdto" parameterType="String">
+select * from macbook_member order by midx desc
+</select>
+
+<!-- 아이디 찾는 문법 -->
+<select id="search_userid" resultType="memberdto" parameterType="Map">
+select mid from macbook_member where mname=#{aaa} and memail=#{bbb}
+</select>
+
+</mapper>
