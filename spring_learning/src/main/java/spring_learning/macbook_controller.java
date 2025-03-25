@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import etc_model.md5_pass;
+
+
+/* extends md5_pass: abstract(추상클래스)이며, 해당 Controller에 직접 핸들링하여 사용가능*/
 @Controller
 public class macbook_controller {
 	
@@ -18,6 +22,9 @@ public class macbook_controller {
 	
 	@Resource(name="user_DAO")
 	public user_DAO dao;
+	
+	@Resource(name="md5_pass")
+	private md5_pass md;
 	
 	//전체 데이터 리스트 가져오기(회원정보)
 	@GetMapping("/macbook_user.do")
@@ -60,7 +67,15 @@ public class macbook_controller {
 	public String macbook_login() {
 		String pw = "a123456";
 		
+		//md5로 사용자 패스워드를 변환하여 회신받음 (@Resource 형태로 사용했을때)
+		String result = this.md.md5_make(pw);
+//		System.out.println(result);
+//		return null;
 		
+		//abstract 사용했을 때
+		//String result = this.md5_make(pw);
+		System.out.println(result);
 		return null;
+		
 	}
 }
