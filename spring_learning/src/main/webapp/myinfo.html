@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>개인정보 확인(API 이용하여 데이터 출력)</title>
+</head>
+<body>
+
+아이디: <div id="mid"></div><br>
+이름: <div id="mname"></div><br>
+이메일: <div id="memail"></div><br>
+지역: <div id="marea"></div><br>
+연락처: <div id="mphone"></div><br>
+
+</body>
+
+<script>
+var http, data;
+http = new XMLHttpRequest(); //통신
+http.onreadystatechange = function(){
+	if(http.readyState==4 && http.status==200){
+		//console.log(JSON.parse(this.response));
+		//JSON.parse: API에서 받은 문자열을 배열화 시키는 함수
+		data = (JSON.parse(this.response)); //
+		view(data); //view에 data 값을 보냄
+	}
+}
+http.open("GET", "api_data3.do", false); //비동기 통신
+http.send();
+
+function view(){
+	//console.log(data);
+	//[대표키][배열순서][put으로 넣어준 단어]
+	document.getElementById("mid").innerText = data["myinfo"][0]["id"];
+	document.getElementById("mname").innerText = data["myinfo"][0]["name"];
+	document.getElementById("memail").innerText = data["myinfo"][0]["email"];
+	document.getElementById("marea").innerText = data["myinfo"][0]["area"];
+	document.getElementById("mphone").innerText = data["myinfo"][0]["phone"];
+	
+}
+</script>
+</html>

@@ -13,3 +13,5 @@ class_use enum('Y', 'N') not null default 'N', /*과정오픈 유,무*/
 today timestamp not null default current_timestamp, /*현재시간*/
 primary key(midx)
 )
+
+select * from macbook_class;

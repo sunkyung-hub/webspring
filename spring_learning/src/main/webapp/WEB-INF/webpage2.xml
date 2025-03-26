@@ -40,7 +40,7 @@
 	<!-- spring_learning안에 @Controller가 붙어있는 것들은 다 작동되게 만듦 
 		base-package: java package를 말하며, 해당 패키지에 있는 모든 @을 사용할 수 있도록 오픈함
 		context: 전체 그룹을 관리하는 태그  -->
-	<context:component-scan base-package="spring_learning, etc_model"/>
+	<context:component-scan base-package="spring_learning,etc_model"/>
 	
 		
 	

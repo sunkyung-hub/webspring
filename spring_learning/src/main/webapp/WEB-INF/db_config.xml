@@ -30,9 +30,9 @@
     -->
    <bean id="dbinfo" class="org.apache.commons.dbcp.BasicDataSource">
       <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql://localhost:3306/mrp"/>
-      <property name="username" value="project"/>
-      <property name="password" value="a12345"/>
+      <property name="url" value="jdbc:mysql://localhost:3306/mpj"/>
+      <property name="username" value="sun"/>
+      <property name="password" value="347910"/>
    </bean>
    
    <!-- Mybatis 구조의 DB 활용 -->
