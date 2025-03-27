@@ -4,6 +4,27 @@
 <!-- member_mapper.xml -->
 <mapper namespace="macbook_user">
 
+<!-- 배너 전체 리스트 -->
+<select id="banner_all" resultType="banner_DTO">
+select * from macbook_banner order by bidx desc
+</select>
+
+<!-- 배너 등록 테이블 -->
+<insert id="banner_new">
+insert into macbook_banner(bidx, bname, file_ori, file_new, file_url, bdate)
+values('0', #{bname}, #{file_ori}, #{file_new}, #{file_url}, now())
+</insert>
+
+<!-- table이 다른 쿼리문(cidx 가상으로 Front-end에서 받았다는 예시) -->
+<select id="cms_views" resultType="Map">
+select * from macbook_cms where cidx='2'
+</select>
+
+<insert id="cms_in" parameterType="Map">
+insert into macbook_cms(cidx, csubject, cuser, cate, cdate)
+values('0', #{csubject}, #{cuser}, #{cate}, now())
+</insert> 
+
 <select id="user_all" resultType="memberdto" parameterType="String">
 select * from macbook_member order by midx desc
 </select>
