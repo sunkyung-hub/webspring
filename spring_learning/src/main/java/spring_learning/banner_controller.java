@@ -14,6 +14,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,11 +53,11 @@ public class banner_controller {
 		
 		if(bfile.getSize() > 0) { //파일 용량으로 체크
 //		if(bfile.getOriginalFilename()!="") { //파일명으로 체크
-//			System.out.println(url);
 		
 			file_new = this.fname.rename(bfile.getOriginalFilename());
 			//웹 디렉토리 개발자가 생성한 파일명으로 저장하는 코드
 			String url = req.getServletContext().getRealPath("/upload/");
+//			System.out.println(url);
 			FileCopyUtils.copy(bfile.getBytes(), new File(url+file_new));
 			
 			dto.setFile_url("/upload/" + file_new); //웹 디렉토리 경로 및 파일명
@@ -68,10 +69,41 @@ public class banner_controller {
 	return null;
 	}
 	
+	//search 검색에 관련사항은 필수조건은 아니며, 또한 null처리가 되었을 경우 defaultvalue값이 공백처리
 	@GetMapping("/banner/bannerlist")
-	public String bannerlist(Model m) {
-		List<banner_DTO> all = this.dao.all_banner();
-		m.addAttribute("all", all);
-		return null;
-	}
+	public String bannerlist(Model m, 
+			@RequestParam(defaultValue="", required=false)String search,
+			@RequestParam(defaultValue="1", required=false)Integer pageno
+			){
+		
+		//데이터 총 갯수 확인 코드
+			int total = this.dao.banner_total();
+			System.out.println(total);
+		
+		//끝
+			int userpage = 0; //사용자가 클릭한 페이지 번호에 맞는 순차번호 계산값
+			if(pageno == 1) {
+				userpage = 0;
+			}
+			else { //1외의 페이지 번호 클릭시
+				userpage = (pageno-1) * 5;
+			}
+			//해당 일련번호를 계산하여 jsp에 전달
+			m.addAttribute("userpage", userpage);
+			
+			
+			List<banner_DTO> all = null;
+			if(search.intern() == "") { //검색어가 없을 경우
+	//			System.out.println("검색어 없음");
+				all = this.dao.all_banner(pageno); //인자값: 사용자가 페이지번호를 클릭한 값
+			}
+			else { //검색어가 있을 경우
+				all = this.dao.search_banner(search);
+			}
+//			System.out.println(search);
+			m.addAttribute("total", total); //데이터 전체 갯수
+			m.addAttribute("search", search); //검색어 jsp 전달
+			m.addAttribute("all", all);
+			return null;
+		}
 }

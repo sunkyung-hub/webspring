@@ -6,7 +6,20 @@
 
 <!-- 배너 전체 리스트 -->
 <select id="banner_all" resultType="banner_DTO">
-select * from macbook_banner order by bidx desc
+select * from macbook_banner order by bidx desc limit #{spage},#{epage}
+</select>
+
+<!-- MySQL + MariaDB: like concat 사용('%', #{search}, '%')
+	 MsSQL: like '%' + #{search} + '%'
+	 Oracle: like '%' || #{search} '%' -->
+
+<select id="banner_search" resultType="banner_DTO" parameterType="Map">
+select * from macbook_banner where bname like concat('%', #{search}, '%') order by bidx desc
+</select>
+
+<!-- 배너에 대한 전체 데이터 갯수 쿼리문 -->
+<select id="banner_total" resultType="int">
+select count(*) as total from macbook_banner
 </select>
 
 <!-- 배너 등록 테이블 -->
